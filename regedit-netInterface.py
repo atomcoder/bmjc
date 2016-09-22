@@ -1,9 +1,8 @@
 # coding = utf-8
 
 import winreg
-import datetime
+import ms_time
 
-TimedeltaPYtoMS = datetime.datetime(1970, 1, 1, 0, 0) - datetime.datetime(1601, 1, 1, 0, 0)
 
 Key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces')
 KeyValueList = []
@@ -12,8 +11,7 @@ try:
     for i in range(winreg.QueryInfoKey(Key)[0]):
         SubKeyName = winreg.EnumKey(Key, i)
         SubKey = winreg.OpenKey(Key, SubKeyName)
-        SubKeyTime = datetime.datetime.fromtimestamp((winreg.QueryInfoKey(SubKey)[2]/10000000) -
-                                                     TimedeltaPYtoMS.total_seconds())  # Time
+        SubKeyTime = ms_time.ms_datetime(winreg.QueryInfoKey(SubKey)[2])
         SubKeyValueList = list()
         for j in range(winreg.QueryInfoKey(SubKey)[1]):
             SubKeyValue = winreg.EnumValue(SubKey, j)
@@ -26,5 +24,6 @@ try:
 except WindowsError:
     print()
 Key.Close()
-for i in KeyValueList:
-    print(i)
+if __name__ == "__main__":
+    for i in KeyValueList:
+        print(i)
