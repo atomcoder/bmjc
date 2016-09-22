@@ -14,7 +14,6 @@ try:
         SubKey = winreg.OpenKey(Key, SubKeyName)
         SubKeyTime = datetime.datetime.fromtimestamp((winreg.QueryInfoKey(SubKey)[2]/10000000) -
                                                      TimedeltaPYtoMS.total_seconds())  # Time
-        print(SubKeyTime)
         SubKeyValueList = list()
         for j in range(winreg.QueryInfoKey(SubKey)[1]):
             SubKeyValue = winreg.EnumValue(SubKey, j)
