@@ -4,7 +4,6 @@ import winreg
 import ms_time
 
 
-
 def list_usb(patch):
     key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, patch)
     key_value_list = []
