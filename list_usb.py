@@ -31,4 +31,5 @@ def list_usb(patch):
 
 
 if __name__ == '__main__':
-    list_usb()
+    list_usb('SYSTEM\\CurrentControlSet\\Enum\\USB')
+
